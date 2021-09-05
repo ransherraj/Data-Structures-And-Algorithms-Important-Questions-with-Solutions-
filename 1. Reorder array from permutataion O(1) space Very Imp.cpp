@@ -1,3 +1,5 @@
+//O(1) space solution
+
 class Solution {
 public:
     vector<int> buildArray(vector<int>& nums) {
@@ -11,5 +13,20 @@ public:
             nums[j] /= n;
         }
         return nums;
+    }
+};
+
+
+
+//O(n) space solution
+class Solution {
+public:
+    vector<int> buildArray(vector<int>& nums) {
+        vector<int> ans(nums);
+        int j = 0;
+        for(auto i : nums){
+            ans[j++] = nums[i];
+        }
+        return ans;
     }
 };
