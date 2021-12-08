@@ -105,6 +105,7 @@ void BFS_SHORTEST(vector<vector<int>> adj){
     int V = adj.size();
     vector<bool>vis(V, false);
     vector<int>dist(V, 0);
+    
     for(int i = 0; i<V; i++){
         if(vis[i] == false){
             util_shortest(adj, vis, i, dist);
@@ -127,10 +128,10 @@ bool util_cycle(vector<vector<int>> adj, vector<bool>&vis, int s, int parent){
     vis[s] = true;
     
     for(int x : adj[s]){
-        // if(vis[x] == false){
-        //     dfsutil(adj, vis, x, s);
-        // }
-        if(util_cycle(adj, vis, x, s) == true) return true;
+        
+        if(vis[x] == false){
+            if(util_cycle(adj, vis, x, s) == true) return true;
+        }
         else if(x != parent) return true;
         
     }
@@ -142,10 +143,9 @@ bool DFS_CYCLE(vector<vector<int>> adj){
     vector<bool>vis(V, false);
     
     for(int i = 0; i<V; i++){
-        // if(vis[i] == false){
-        //     util_cycle(adj, vis, i, -1);
-        // }
-        if(util_cycle(adj, vis, i, -1) == true) return true;
+        if(vis[i] == false){
+            if(util_cycle(adj, vis, i, -1) == true) return true;
+        }
     }
     return false;
 }
