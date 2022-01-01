@@ -80,6 +80,46 @@ void BFS(vector<vector<int>> adj){
     }
 }
 
+
+//shortest path
+
+//
+
+void shortDist(vector<vector<int>> adj, vector<bool>&vis, vector<int>&dist, int s){
+    vis[s] = true;
+    queue<int> q;
+    q.push(s);
+    while(!q.empty()){
+        int v = q.front();
+        
+        q.pop();
+        for(int x : adj[v]){
+            if(vis[x] == false){
+                dist[x] = dist[v] + 1;
+                vis[x] = true;
+                q.push(x);
+            }
+        }
+    }
+}
+
+void distBFS(vector<vector<int>> adj){
+    int V = adj.size();
+    vector<int>dist(V);
+    vector<bool>vis(V, false);
+    cout<<endl<<" Shortest Distance: ";
+    for(int i = 0; i<V; i++){
+        if(vis[i] == false){
+            shortDist(adj, vis, dist, i);
+        }
+    }
+    
+    for(int i = 0; i<V; i++){
+        cout<<i<<" "<<dist[i]<<endl;
+    }
+}
+
+
 int main()
 {
     int V, edgeCount;
@@ -97,5 +137,38 @@ int main()
     DFS(adj);
     cout<<endl;
     BFS(adj);
+    
+    distBFS(adj);
     return 0;
 }
+
+
+/* 
+INPUT::
+6 6
+0 1
+0 2
+1 3 
+2 3
+3 4 
+3 5
+
+OUTPUT::
+Adjacency list of vertex: 0: -> 1-> 2
+Adjacency list of vertex: 1: -> 0-> 3
+Adjacency list of vertex: 2: -> 0-> 3
+Adjacency list of vertex: 3: -> 1-> 2-> 4-> 5
+Adjacency list of vertex: 4: -> 3
+Adjacency list of vertex: 5: -> 3
+
+DFS Traversal: 0 1 3 2 4 5 
+BFS Traversal: 0 1 2 3 4 5 
+ Shortest Distance: 0 0
+1 1
+2 1
+3 2
+4 3
+5 3
+
+
+*/
